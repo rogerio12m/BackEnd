@@ -1,3 +1,7 @@
 .vscode/
 bin/
 Thumb.db
+Conta.cs
+ContaCorrente.cs
+ContaPoupanca.cs
+ProgramParalelo.txt
