@@ -1,52 +1,69 @@
 ﻿using BackEnd.Classes;
 using System.Text.RegularExpressions;
 
-
-// métodos dos objetos
-PessoaFisica metodosPf = new PessoaFisica();
-PessoaJuridica metodosPj = new PessoaJuridica();
-
-// ********************** CADASTRO *************************
-
-//endereço de pessoa física
-Endereco endPf = new Endereco();
-    endPf.logradouro = "Rua de Casa";
-    endPf.numero = 123;
-    endPf.comercial = false;
-
-//pessoa física
-PessoaFisica novaPessoaFisica = new PessoaFisica();
-    Console.WriteLine($"Digite o nome:");
-    novaPessoaFisica.nome = Console.ReadLine();
-    novaPessoaFisica.dataNascimento = "02/05/2004";
-    novaPessoaFisica.endereco = endPf;
-    novaPessoaFisica.rendimento = 1600f;
-    novaPessoaFisica.cpf = "123456789-00";
-
-//endereço de pessoa jurídica
-Endereco endPj = new Endereco();
-    endPj.logradouro = "Rua Niterói";
-    endPj.numero = 180;
-    endPj.comercial = true;
-
-PessoaJuridica novaPessoaJuridica = new PessoaJuridica();  
-    novaPessoaJuridica.nome = "Paulo Skaf";
-    novaPessoaJuridica.endereco = endPj;
-    novaPessoaJuridica.razaoSocial = "Serviço Nacional de Aprendizagem Industrial";
-    // novaPessoaJuridica.cnpj = "70.469.056/0001-75";
-    novaPessoaJuridica.cnpj = "70469056000175";
-    novaPessoaJuridica.rendimento = 6000f;
-
-    
-// ********************** EXIBIÇÃO *************************    
-
 Console.Clear();
-
-//Exibindo dados da pessoa física
-Console.WriteLine($"******* PESSOA FÍSICA *******");
-Console.WriteLine();
-
 Console.WriteLine(@$"
+============================================
+|    Bem vindo ao sistema de cadastro de   |
+|        Pessoa Física e Jurídica          |
+============================================
+");
+
+Utils.BarraCarregamento("Carregando");
+
+string opcao;
+
+// Começo dowhile
+
+do
+{
+
+    Console.Clear();
+    Console.WriteLine(@$"
+=======================================
+|    Escolha uma das opções abaixo    |
+|-------------------------------------|
+|        1 - Pessoa Física            |
+|        2 - Pessoa Jurídica          |
+|                                     |
+|        0 - Sair                     |
+=======================================
+");
+
+    opcao = Console.ReadLine();
+
+    switch (opcao)
+    {
+        case "1":
+            // métodos dos objetos
+            PessoaFisica metodosPf = new PessoaFisica();
+
+            // ********************** CADASTRO *************************
+
+            //endereço de pessoa física
+            Endereco endPf = new Endereco();
+            endPf.logradouro = "Rua de Casa";
+            endPf.numero = 123;
+            endPf.comercial = false;
+
+            //pessoa física
+            PessoaFisica novaPessoaFisica = new PessoaFisica();
+            Console.WriteLine($"Digite o nome:");
+            novaPessoaFisica.nome = Console.ReadLine();
+            novaPessoaFisica.dataNascimento = "02/05/2004";
+            novaPessoaFisica.endereco = endPf;
+            novaPessoaFisica.rendimento = 1600f;
+            novaPessoaFisica.cpf = "123456789-00";
+
+            // ********************** EXIBIÇÃO *************************    
+
+            Console.Clear();
+
+            //Exibindo dados da pessoa física
+            Console.WriteLine($"******* PESSOA FÍSICA *******");
+            Console.WriteLine();
+
+            Console.WriteLine(@$"
 Nome: {novaPessoaFisica.nome}
 Endereço: {novaPessoaFisica.endereco.logradouro}
 Número: {novaPessoaFisica.endereco.numero}
@@ -58,13 +75,41 @@ Rendimento: R$ {novaPessoaFisica.rendimento}
 Rendimento Líquido: R$ {metodosPf.PagarImposto(novaPessoaFisica.rendimento)}
 ");
 
-Console.WriteLine();
+            Console.ForegroundColor = ConsoleColor.DarkGreen;
+            Console.WriteLine($"Aperte 'ENTER' para continuar");
+            Console.ReadLine();
+            Console.ResetColor();
 
-//Exibindo dados da pessoa jurídica
-Console.WriteLine($"******* PESSOA JURÍDICA *******");
-Console.WriteLine();
+            break;
 
-Console.WriteLine(@$"
+        case "2":
+            // métodos dos objetos
+            PessoaJuridica metodosPj = new PessoaJuridica();
+
+            // ********************** CADASTRO *************************
+
+            //endereço de pessoa jurídica
+            Endereco endPj = new Endereco();
+            endPj.logradouro = "Rua Niterói";
+            endPj.numero = 180;
+            endPj.comercial = true;
+
+            PessoaJuridica novaPessoaJuridica = new PessoaJuridica();
+            novaPessoaJuridica.nome = "Paulo Skaf";
+            novaPessoaJuridica.endereco = endPj;
+            novaPessoaJuridica.razaoSocial = "Serviço Nacional de Aprendizagem Industrial";
+            // novaPessoaJuridica.cnpj = "70.469.056/0001-75";
+            novaPessoaJuridica.cnpj = "70469056000175";
+            novaPessoaJuridica.rendimento = 6000f;
+
+            // ********************** EXIBIÇÃO *************************
+
+            //Exibindo dados da pessoa jurídica
+            Console.WriteLine();
+            Console.WriteLine($"******* PESSOA JURÍDICA *******");
+            Console.WriteLine();
+
+            Console.WriteLine(@$"
 Razão Social: {novaPessoaJuridica.razaoSocial}
 CNPJ: {novaPessoaJuridica.cnpj}
 Representante: {novaPessoaJuridica.nome}
@@ -75,6 +120,34 @@ CNPJ Válido? {metodosPj.ValidarCnpj(novaPessoaJuridica.cnpj)}
 Rendimento: R$ {novaPessoaJuridica.rendimento}
 Rendimento Líquido: R$ {metodosPj.PagarImposto(novaPessoaJuridica.rendimento)}
 ");
+
+            Console.ForegroundColor = ConsoleColor.DarkGreen;
+            Console.WriteLine($"Aperte 'ENTER' para continuar");
+            Console.ReadLine();
+            Console.ResetColor();
+
+            break;
+
+        case "0":
+            Console.Clear();
+            Console.WriteLine($"Obrigado por utilizar nosso sistema!");
+
+            Utils.BarraCarregamento("Finalizando");
+
+            break;
+
+        default:
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            Console.WriteLine($"Opção inválida, por favor digite outra opção!");
+            Console.ResetColor();
+            Thread.Sleep(3000);
+
+            break;
+    }
+
+} while (opcao != "0");
+
 
 
 // *********************TESTES DE APRENDIZAGEM**************************
