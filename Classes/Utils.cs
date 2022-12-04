@@ -22,5 +22,14 @@ namespace BackEnd.Classes
             Console.ResetColor();
 
         }
+
+        public static void ParadaNoConsole(string txt)
+        {
+            Console.ForegroundColor = ConsoleColor.DarkGreen;
+            Console.WriteLine($"{txt}");
+            Console.WriteLine("Tecle 'ENTER' para continuar");
+            Console.ReadLine();
+            Console.ResetColor();
+        }
     }
 }
