@@ -13,7 +13,7 @@ namespace BackEnd.Classes
             Console.ForegroundColor = ConsoleColor.Black;
             Console.Write($"{texto}");
 
-            for (int contador = 0; contador < 6; contador++)
+            for (int contador = 0; contador < 3; contador++)
             {
                 Thread.Sleep(500);
                 Console.Write($".");
@@ -28,8 +28,8 @@ namespace BackEnd.Classes
             Console.ForegroundColor = ConsoleColor.DarkGreen;
             Console.WriteLine($"{txt}");
             Console.WriteLine("Tecle 'ENTER' para continuar");
-            Console.ReadLine();
             Console.ResetColor();
+            Console.ReadLine();
         }
     }
 }

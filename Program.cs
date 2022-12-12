@@ -70,19 +70,45 @@ do
                         // ********************** CADASTRO *************************
 
                         //endereço de pessoa física
-                        Endereco endPf = new Endereco();
-                        endPf.logradouro = "Rua de Casa";
-                        endPf.numero = 123;
-                        endPf.comercial = false;
+                        // Endereco endPf = new Endereco();
+                        // Console.WriteLine($"Qual é o endereço?");
+                        // endPf.logradouro = Console.ReadLine();
+                        // Console.WriteLine("Qual é o número?");
+                        // endPf.numero = int.Parse(Console.ReadLine());
+                        // Console.WriteLine($"Endereço é comercial? S/N");
+                        // string enderecoComercial = Console.ReadLine();
+
+                        // if (enderecoComercial.ToUpper() == "S")
+                        // {
+                        //     endPf.comercial = true;
+                        // }
+                        // else
+                        // {
+                        //     endPf.comercial = false;
+                        // }
 
                         //pessoa física
                         PessoaFisica novaPessoaFisica = new PessoaFisica();
-                        Console.WriteLine($"Digite o nome:");
-                        novaPessoaFisica.nome = Console.ReadLine();
-                        novaPessoaFisica.dataNascimento = "02/05/2004";
-                        novaPessoaFisica.endereco = endPf;
-                        novaPessoaFisica.rendimento = 1600f;
-                        novaPessoaFisica.cpf = "123456789-00";
+                        novaPessoaFisica.PreencherDadosTeste();
+
+                        //Cadastrar no TXT
+
+                        using (StreamWriter arquivo = new StreamWriter($"./DadosPf/PessoaFisica.txt", append: true))
+                        {
+                            arquivo.WriteLine($"{novaPessoaFisica.nome},{novaPessoaFisica.endereco.logradouro},{novaPessoaFisica.endereco.numero}");
+                            arquivo.Close();
+                        }
+
+
+                        // Console.WriteLine($"Digite o nome: ");
+                        // novaPessoaFisica.nome = Console.ReadLine();
+                        // Console.WriteLine($"Digite a data de nascimento - Ex: 20/09/1990");
+                        // novaPessoaFisica.dataNascimento = Console.ReadLine();
+                        // novaPessoaFisica.endereco = endPf;
+                        // Console.WriteLine($"Informe seu rendimento: ");
+                        // novaPessoaFisica.rendimento = float.Parse(Console.ReadLine());
+                        // Console.WriteLine($"Informe seu CPF: ");
+                        // novaPessoaFisica.cpf = Console.ReadLine();
 
                         cadastroPf.Add(novaPessoaFisica);
 
@@ -93,28 +119,50 @@ do
 
                         // ********************** EXIBIÇÃO *************************
 
-                        foreach (var pf in cadastroPf)
+                        Console.WriteLine($"******* LISTAGEM DE PESSOA FÍSICA *******");
+
+                        using (StreamReader arquivo = new StreamReader($"./DadosPf/PessoaFisica.txt"))
                         {
+                            string linha;
 
-                            Console.Clear();
+                            while ((linha = arquivo.ReadLine()) != null)
+                            {
+                                Console.WriteLine($"{linha}");
 
-                            //Exibindo dados da pessoa física
-                            Console.WriteLine($"******* LISTAGEM DE PESSOA FÍSICA *******");
-
-                            Console.WriteLine(@$"
-Nome: {pf.nome}
-Endereço: {pf.endereco.logradouro}
-Número: {pf.endereco.numero}
-Endereço Comercial: {pf.endereco.comercial}
-CPF: {pf.cpf}
-Data Nascimento: {pf.dataNascimento}
-Maior de Idade: {metodosPf.ValidarDataNascimento(pf.dataNascimento)}
-Rendimento: R$ {pf.rendimento}
-Rendimento Líquido: R$ {metodosPf.PagarImposto(pf.rendimento)}
-");
+                            }
                         }
 
                         Utils.ParadaNoConsole("Fim da listagem!");
+
+                        // if (cadastroPf.Count > 0)
+                        // {
+                        //     foreach (var pf in cadastroPf)
+                        //     {
+
+                        //         Console.Clear();
+
+                        //         //Exibindo dados da pessoa física         
+
+                        //         //                                 Console.WriteLine(@$"
+                        //         // Nome: {pf.nome}
+                        //         // Endereço: {pf.endereco.logradouro}
+                        //         // Número: {pf.endereco.numero}
+                        //         // Endereço Comercial: {pf.endereco.comercial}
+                        //         // CPF: {pf.cpf}
+                        //         // Data Nascimento: {pf.dataNascimento}
+                        //         // Maior de Idade: {metodosPf.ValidarDataNascimento(pf.dataNascimento)}
+                        //         // Rendimento: R$ {pf.rendimento}
+                        //         // Rendimento Líquido: R$ {metodosPf.PagarImposto(pf.rendimento)}
+                        //         // ");
+                        //         //pf.Imprimir();
+                        //     }
+
+                        // }
+                        // else
+                        // {
+                        //     Utils.ParadaNoConsole("Lista Vazia!");
+                        // }
+
                         break;
 
                     case "0": // Voltar ao menu principal
@@ -124,8 +172,8 @@ Rendimento Líquido: R$ {metodosPf.PagarImposto(pf.rendimento)}
                         Console.Clear();
                         Console.ForegroundColor = ConsoleColor.DarkRed;
                         Console.WriteLine($"Opção inválida, por favor digite outra opção!");
-                        Thread.Sleep(3000);
                         Console.ResetColor();
+                        Thread.Sleep(3000);
                         break;
                 }
 
@@ -217,8 +265,8 @@ Rendimento Líquido: R$ {metodosPj.PagarImposto(Pj.rendimento)}
                         Console.Clear();
                         Console.ForegroundColor = ConsoleColor.DarkRed;
                         Console.WriteLine($"Opção inválida, por favor digite outra opção!");
-                        Thread.Sleep(3000);
                         Console.ResetColor();
+                        Thread.Sleep(3000);
                         break;
                 }
 
@@ -240,8 +288,8 @@ Rendimento Líquido: R$ {metodosPj.PagarImposto(Pj.rendimento)}
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.DarkRed;
             Console.WriteLine($"Opção inválida, por favor digite outra opção!");
-            Thread.Sleep(3000);
             Console.ResetColor();
+            Thread.Sleep(3000);
 
             break;
     }

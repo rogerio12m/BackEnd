@@ -25,7 +25,7 @@ namespace BackEnd.Classes
             {
                 return parRendimento - (parRendimento / 100) * 3; //desconta 3% do rendimento
             }
-         
+
             return parRendimento - (parRendimento / 100) * 5; //desconta 5% do rendimento
 
         }
@@ -52,6 +52,35 @@ namespace BackEnd.Classes
             }
 
             return false;
+        }
+
+        public void PreencherDadosTeste()
+        {
+            Endereco endPf = new Endereco();
+            endPf.logradouro = "Rua de casa";
+            endPf.numero = 123;
+            endPf.comercial = false;
+
+            this.nome = "Rogério";
+            this.cpf = "12345678900";
+            this.dataNascimento = "02/05/2004";
+            this.rendimento = 1929.98f;
+            this.endereco = endPf;
+        }
+
+        public void Imprimir()
+        {
+             Console.WriteLine(@$"
+Nome: {this.nome}
+Endereço: {this.endereco.logradouro}
+Número: {this.endereco.numero}
+Endereço Comercial: {this.endereco.comercial}
+CPF: {this.cpf}
+Data Nascimento: {this.dataNascimento}
+Maior de Idade: {this.ValidarDataNascimento(this.dataNascimento)}
+Rendimento: R$ {this.rendimento}
+Rendimento Líquido: R$ {this.PagarImposto(this.rendimento)}
+");
         }
     }
 }
