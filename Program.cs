@@ -93,9 +93,19 @@ do
 
                         //Cadastrar no TXT
 
-                        using (StreamWriter arquivo = new StreamWriter($"./DadosPf/PessoaFisica.txt", append: true))
+                        using (StreamWriter arquivo = new StreamWriter($"./DadosPf/Rogerio.txt", append: true))
                         {
-                            arquivo.WriteLine($"{novaPessoaFisica.nome},{novaPessoaFisica.endereco.logradouro},{novaPessoaFisica.endereco.numero}");
+                            arquivo.WriteLine(@$"
+Nome: {novaPessoaFisica.nome},
+Endereço: {novaPessoaFisica.endereco.logradouro},
+Número: {novaPessoaFisica.endereco.numero},
+Endereço Comercial: {novaPessoaFisica.endereco.comercial},
+CPF: {novaPessoaFisica.cpf},
+Data Nascimento: {novaPessoaFisica.dataNascimento},
+Maior de Idade: {metodosPf.ValidarDataNascimento(novaPessoaFisica.dataNascimento)},
+Rendimento: R$ {novaPessoaFisica.rendimento},
+Rendimento Líquido: R$ {metodosPf.PagarImposto(novaPessoaFisica.rendimento)}
+                            ");
                             arquivo.Close();
                         }
 
@@ -121,7 +131,7 @@ do
 
                         Console.WriteLine($"******* LISTAGEM DE PESSOA FÍSICA *******");
 
-                        using (StreamReader arquivo = new StreamReader($"./DadosPf/PessoaFisica.txt"))
+                        using (StreamReader arquivo = new StreamReader($"./DadosPf/Rogerio.txt"))
                         {
                             string linha;
 
@@ -210,19 +220,39 @@ do
 
                         // ********************** CADASTRO *************************
 
-                        //endereço de pessoa jurídica
-                        Endereco endPj = new Endereco();
-                        endPj.logradouro = "Rua Niterói";
-                        endPj.numero = 180;
-                        endPj.comercial = true;
+                        // //endereço de pessoa jurídica
+                        // Endereco endPj = new Endereco();
+                        // endPj.logradouro = "Rua Niterói";
+                        // endPj.numero = 180;
+                        // endPj.comercial = true;
 
+                        // PessoaJuridica novaPessoaJuridica = new PessoaJuridica();
+                        // novaPessoaJuridica.nome = "Paulo Skaf";
+                        // novaPessoaJuridica.endereco = endPj;
+                        // novaPessoaJuridica.razaoSocial = "Serviço Nacional de Aprendizagem Industrial";
+                        // // novaPessoaJuridica.cnpj = "70.469.056/0001-75";
+                        // novaPessoaJuridica.cnpj = "70469056000175";
+                        // novaPessoaJuridica.rendimento = 6000f;
+
+                        // Pessoa Jurídica
                         PessoaJuridica novaPessoaJuridica = new PessoaJuridica();
-                        novaPessoaJuridica.nome = "Paulo Skaf";
-                        novaPessoaJuridica.endereco = endPj;
-                        novaPessoaJuridica.razaoSocial = "Serviço Nacional de Aprendizagem Industrial";
-                        // novaPessoaJuridica.cnpj = "70.469.056/0001-75";
-                        novaPessoaJuridica.cnpj = "70469056000175";
-                        novaPessoaJuridica.rendimento = 6000f;
+                        novaPessoaJuridica.PreencherDadosTeste();
+
+                        using (StreamWriter arquivo = new StreamWriter($"./DadosPj/Senai.txt", append: true))
+                        {
+                            arquivo.WriteLine(@$"
+Razão Social: {novaPessoaJuridica.razaoSocial}
+CNPJ: {novaPessoaJuridica.cnpj}
+Representante: {novaPessoaJuridica.nome}
+Endereço: {novaPessoaJuridica.endereco.logradouro}
+Número: {novaPessoaJuridica.endereco.numero}
+Endereço Comercial: {novaPessoaJuridica.endereco.comercial}
+CNPJ Válido? {metodosPj.ValidarCnpj(novaPessoaJuridica.cnpj)}
+Rendimento: R$ {novaPessoaJuridica.rendimento}
+Rendimento Líquido: R$ {metodosPj.PagarImposto(novaPessoaJuridica.rendimento)}
+                            ");
+                            arquivo.Close();
+                        }
 
                         cadastroPj.Add(novaPessoaJuridica);
 
@@ -238,23 +268,34 @@ do
                         Console.Clear();
                         Console.WriteLine($"******* LISTAGEM DE PESSOA JURÍDICA *******");
 
-                        foreach (var Pj in cadastroPj)
+                        using (StreamReader arquivo = new StreamReader($"./DadosPj/Senai.txt"))
                         {
-                            Console.WriteLine(@$"
-Razão Social: {Pj.razaoSocial}
-CNPJ: {Pj.cnpj}
-Representante: {Pj.nome}
-Endereço: {Pj.endereco.logradouro}
-Número: {Pj.endereco.numero}
-Endereço Comercial: {Pj.endereco.comercial}
-CNPJ Válido? {metodosPj.ValidarCnpj(Pj.cnpj)}
-Rendimento: R$ {Pj.rendimento}
-Rendimento Líquido: R$ {metodosPj.PagarImposto(Pj.rendimento)}
-");
+                            string linha;
 
+                            while ((linha = arquivo.ReadLine()) != null)
+                            {
+                                Console.WriteLine($"{linha}");
+
+                            }
                         }
 
                         Utils.ParadaNoConsole("Fim da listagem");
+
+//                         foreach (var Pj in cadastroPj)
+//                         {
+//                             Console.WriteLine(@$"
+// Razão Social: {Pj.razaoSocial}
+// CNPJ: {Pj.cnpj}
+// Representante: {Pj.nome}
+// Endereço: {Pj.endereco.logradouro}
+// Número: {Pj.endereco.numero}
+// Endereço Comercial: {Pj.endereco.comercial}
+// CNPJ Válido? {metodosPj.ValidarCnpj(Pj.cnpj)}
+// Rendimento: R$ {Pj.rendimento}
+// Rendimento Líquido: R$ {metodosPj.PagarImposto(Pj.rendimento)}
+// ");
+
+//                         }
 
                         break;
 

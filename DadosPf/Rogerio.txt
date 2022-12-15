@@ -1,0 +1,11 @@
+
+Nome: Rogério,
+Endereço: Rua de casa,
+Número: 123,
+Endereço Comercial: False,
+CPF: 12345678900,
+Data Nascimento: 02/05/2004,
+Maior de Idade: True,
+Rendimento: R$ 1929,98,
+Rendimento Líquido: R$ 1872,0806
+                            

@@ -1,0 +1,11 @@
+
+Razão Social: Serviço Nacional de Aprendizagem Industrial
+CNPJ: 70469056000175
+Representante: Paulo Skaf
+Endereço: Rua Niterói
+Número: 180
+Endereço Comercial: True
+CNPJ Válido? True
+Rendimento: R$ 6000
+Rendimento Líquido: R$ 5520
+                            

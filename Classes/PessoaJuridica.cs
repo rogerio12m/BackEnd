@@ -57,5 +57,34 @@ namespace BackEnd.Classes
 
             return false; 
         }
+
+        public void PreencherDadosTeste()
+        {
+            Endereco endPj = new Endereco();
+            endPj.logradouro = "Rua Niterói";
+            endPj.numero = 180;
+            endPj.comercial = true;
+
+            this.nome = "Paulo Skaf";
+            this.razaoSocial = "Serviço Nacional de Aprendizagem Industrial";
+            this.cnpj = "70469056000175";
+            this.rendimento = 6000f;
+            this.endereco = endPj;
+        }
+
+        public void Imprimir()
+        {
+             Console.WriteLine(@$"
+Razão Social: {this.razaoSocial}
+CNPJ: {this.cnpj}
+Representante: {this.nome}
+Endereço: {this.endereco.logradouro}
+Número: {this.endereco.numero}
+Endereço Comercial: {this.endereco.comercial}
+CNPJ Válido? {this.ValidarCnpj(this.cnpj)}
+Rendimento: R$ {this.rendimento}
+Rendimento Líquido: R$ {this.PagarImposto(this.rendimento)}
+");
+        }
     }
 }
